@@ -91,6 +91,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Uiy-jl-Atr" kind="show" identifier="IconPick" id="mz3-F5-bcN"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -101,6 +104,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="添加" id="dl5-cE-jxi">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="e6M-Ha-3Cm">
+                            <connections>
+                                <action selector="cancel:" destination="euf-Sl-DYl" id="wH8-4w-7aN"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="确定" id="eAI-ix-C4D">
                             <connections>
                                 <action selector="done:" destination="euf-Sl-DYl" id="a6c-0j-SfV"/>
@@ -116,6 +124,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6m-Hm-63R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2154" y="1273"/>
+        </scene>
+        <!--Icon View Controller-->
+        <scene sceneID="nXs-sk-zYk">
+            <objects>
+                <tableViewController id="Uiy-jl-Atr" customClass="IconViewController" customModule="todo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="yhA-Ya-xab">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="iconCell" id="spI-sh-Uio">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="spI-sh-Uio" id="7Ho-nh-5N8">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Uiy-jl-Atr" id="d4B-53-AUt"/>
+                            <outlet property="delegate" destination="Uiy-jl-Atr" id="TXZ-zd-2Ju"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SMA-pr-ubp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2857" y="1273"/>
         </scene>
         <!--任务分类-->
         <scene sceneID="NPC-Ak-bbF">

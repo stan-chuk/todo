@@ -10,7 +10,7 @@ import Foundation
 
 class TaskItem: NSObject {
     var name: String = ""
-    var icon: String = "提醒"
+    var icon: String = "心情"
     
     init(name: String) {
         self.name = name
