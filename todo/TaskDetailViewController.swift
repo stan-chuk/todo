@@ -14,53 +14,43 @@ class TaskDetailViewController: UITableViewController, ProtocolIconView {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     
-    var taskItem: TaskItem = TaskItem.init(name: "")
+    var typeItem: TypeItem = TypeItem.init(name: "")
     
-    //设置状态，以便查看当前是 item 1 还是 item 2
+    //设置状态，以便查看当前是添加状态还是编辑状态
     var isAddState: Bool = true
     
     func onAddState() {
         isAddState = true
         //设为新数据
-        taskItem = TaskItem(name: "")
+        typeItem = TypeItem(name: "")
         self.title = "添加"
         //清空文本框内的内容
         updateView()
     }
     
-    func onEditState(taskItem: TaskItem) {
-        
+    func onEditState(typeItem: TypeItem) {
         isAddState = false
         self.title = "编辑任务"
-        self.taskItem = taskItem
-        
+        self.typeItem = typeItem
     }
     
     //更新视图的内容
     func updateView() {
-        self.textField.text = taskItem.name
+        self.textField.text = typeItem.name
     }
     
     //当页面加载完毕之后就可以将数据载入控件中
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        
+        //将当前数据的 icon 显示在 imageView 中
+        iconImageView.image = UIImage(named: typeItem.icon)
         updateView()
         textField.becomeFirstResponder()
-        if isAddState {
-            doneButton.enabled = false
-        } else {
-            doneButton.enabled = true
-        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,18 +63,19 @@ class TaskDetailViewController: UITableViewController, ProtocolIconView {
         onAddState()
     }
     @IBAction func done(sender: UIBarButtonItem) {
-        taskItem.name = textField.text!
+        typeItem.name = textField.text!
         
         if isAddState {
-            todoModel.addTask(taskItem)
+            todoModel.addTaskType(typeItem)
         } else {
             let navigation = self.tabBarController?.viewControllers?[0] as! UINavigationController
-            let taskView = navigation.viewControllers.first as! TaskViewController
-            taskView.tableView.reloadData()
+            let typeView = navigation.viewControllers.first as! TaskTypeViewController
+            typeView.tableView.reloadData()
         }
         
         //跳转页面
         self.tabBarController?.selectedIndex = 0
+        
         //改变状态
         onAddState()
         
@@ -92,9 +83,8 @@ class TaskDetailViewController: UITableViewController, ProtocolIconView {
     
     //实现协议里的方法
     func iconPick(didPickIcon iconName: String) {
-        
         //设置当前页面数据的 icon 属性
-        self.taskItem.icon = iconName
+        self.typeItem.icon = iconName
         
         //设置列表中的 icon
         iconImageView.image = UIImage(named: iconName)
@@ -103,6 +93,9 @@ class TaskDetailViewController: UITableViewController, ProtocolIconView {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "IconPick" {
             let iconViewController = segue.destinationViewController as? IconViewController
@@ -145,14 +138,5 @@ class TaskDetailViewController: UITableViewController, ProtocolIconView {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

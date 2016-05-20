@@ -62,8 +62,6 @@ class IconViewController: UITableViewController {
         cell.imageView?.image = UIImage(named: icon)
         cell.textLabel?.text = icon
         
-        // Configure the cell...
-
         return cell
     }
 

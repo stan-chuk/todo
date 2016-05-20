@@ -8,7 +8,7 @@
         <!--任务分类-->
         <scene sceneID="94j-2Q-Khc">
             <objects>
-                <tableViewController id="rv7-sU-sKm" customClass="TaskViewController" customModule="todo" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="rv7-sU-sKm" customClass="TaskTypeViewController" customModule="todo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cLX-SX-YjA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,7 +80,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="提醒" translatesAutoresizingMaskIntoConstraints="NO" id="av2-Z0-TcS">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="心情" translatesAutoresizingMaskIntoConstraints="NO" id="av2-Z0-TcS">
                                                     <rect key="frame" x="8" y="4" width="36" height="36"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="分类图标" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOy-di-OHd">
@@ -125,7 +125,7 @@
             </objects>
             <point key="canvasLocation" x="2154" y="1273"/>
         </scene>
-        <!--Icon View Controller-->
+        <!--分类图标-->
         <scene sceneID="nXs-sk-zYk">
             <objects>
                 <tableViewController id="Uiy-jl-Atr" customClass="IconViewController" customModule="todo" customModuleProvider="target" sceneMemberID="viewController">
@@ -148,6 +148,7 @@
                             <outlet property="delegate" destination="Uiy-jl-Atr" id="TXZ-zd-2Ju"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="分类图标" id="cY5-YU-GUc"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SMA-pr-ubp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -213,6 +214,6 @@
     <resources>
         <image name="plus" width="40" height="40"/>
         <image name="todo" width="40" height="40"/>
-        <image name="提醒" width="36" height="36"/>
+        <image name="心情" width="36" height="36"/>
     </resources>
 </document>
