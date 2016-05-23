@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F613C07B1CEF0B3200A7E6C2 /* TaskTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F613C07A1CEF0B3200A7E6C2 /* TaskTypeViewController.swift */; };
+		F668AA071CF2EF6C00716D09 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F668AA061CF2EF6C00716D09 /* TaskListViewController.swift */; };
 		F691197D1CEDF79B00361336 /* IconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F691197C1CEDF79B00361336 /* IconViewController.swift */; };
 		F6A2CF021CEC259D004F8FFA /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A2CF011CEC259D004F8FFA /* TaskDetailViewController.swift */; };
 		F6A2CF061CEC34D9004F8FFA /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A2CF051CEC34D9004F8FFA /* TodoModel.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		F613C07A1CEF0B3200A7E6C2 /* TaskTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTypeViewController.swift; sourceTree = "<group>"; };
+		F668AA061CF2EF6C00716D09 /* TaskListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		F691197C1CEDF79B00361336 /* IconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconViewController.swift; sourceTree = "<group>"; };
 		F6A2CF011CEC259D004F8FFA /* TaskDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		F6A2CF051CEC34D9004F8FFA /* TodoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				F6B57DB71CEB1AD2005BFD5B /* AppDelegate.swift */,
 				F613C07A1CEF0B3200A7E6C2 /* TaskTypeViewController.swift */,
+				F668AA061CF2EF6C00716D09 /* TaskListViewController.swift */,
 				F6A2CF011CEC259D004F8FFA /* TaskDetailViewController.swift */,
 				F691197C1CEDF79B00361336 /* IconViewController.swift */,
 				F6B57DBB1CEB1AD2005BFD5B /* Main.storyboard */,
@@ -273,6 +276,7 @@
 				F613C07B1CEF0B3200A7E6C2 /* TaskTypeViewController.swift in Sources */,
 				F6A2CF061CEC34D9004F8FFA /* TodoModel.swift in Sources */,
 				F6A2CF021CEC259D004F8FFA /* TaskDetailViewController.swift in Sources */,
+				F668AA071CF2EF6C00716D09 /* TaskListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

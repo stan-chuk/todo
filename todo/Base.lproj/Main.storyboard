@@ -38,6 +38,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="任务分类" id="RcA-1I-Ayl"/>
+                    <connections>
+                        <segue destination="JJR-Ks-i1W" kind="show" identifier="showTask" id="paV-S2-bEQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5i-6u-Xt0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -124,6 +127,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6m-Hm-63R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2154" y="1273"/>
+        </scene>
+        <!--Task List View Controller-->
+        <scene sceneID="pIa-e1-UYn">
+            <objects>
+                <tableViewController id="JJR-Ks-i1W" customClass="TaskListViewController" customModule="todo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="buA-JQ-CyX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" id="efC-ho-OoB">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="efC-ho-OoB" id="KWz-NU-4oT">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="JJR-Ks-i1W" id="dVj-C7-FZ2"/>
+                            <outlet property="delegate" destination="JJR-Ks-i1W" id="sQI-0F-JV8"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K2r-kF-cVG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2857" y="565"/>
         </scene>
         <!--分类图标-->
         <scene sceneID="nXs-sk-zYk">

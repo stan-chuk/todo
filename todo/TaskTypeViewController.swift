@@ -51,6 +51,12 @@ class TaskTypeViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let taskTypeItem = todoModel.typeList[indexPath.row]
+        let taskListViewController = TaskListViewController()
+        self.navigationController?.pushViewController(taskListViewController, animated: true)
+    }
+    
     
     /*
      // Override to support conditional editing of the table view.
@@ -81,7 +87,7 @@ class TaskTypeViewController: UITableViewController {
                 taskDetail.onEditState(taskItem)
                 self.tabBarController?.selectedIndex = 1
             }
-    
+            
             let deleteAction = UITableViewRowAction(style: .Default, title: "删除") { (action, indexPath) in
                 todoModel.typeList.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
