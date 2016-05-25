@@ -8,15 +8,13 @@
 
 import UIKit
 
-protocol showTaskList {
-    func showTaskList()
-}
-
 class TaskListViewController: UITableViewController {
-
+    
+    var taskList: TypeItem?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.title = taskList?.name
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,23 +31,41 @@ class TaskListViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return (taskList?.items.count)!
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath)
+        let task = taskList?.items[indexPath.row]
+        let title = cell.viewWithTag(100) as! UILabel
+        title.text = task?.title
+        title.sizeToFit()
         return cell
     }
-    */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let task = taskList?.items[indexPath.row]
+        task?.changeFinishState()
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        let checkBox = cell!.viewWithTag(99) as! UIImageView
+        checkBox.image = checkFinishState(task!)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func checkFinishState(task: TaskItem) -> UIImage {
+        var image: UIImage
+        if task.isFinish {
+            image = UIImage(named: "checkbox-checked")!
+        } else {
+            image = UIImage(named: "checkbox-normal")!
+        }
+        return image
+    }
 
     /*
     // Override to support conditional editing of the table view.

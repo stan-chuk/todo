@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--任务分类-->
@@ -25,7 +26,7 @@
                                             <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -53,7 +54,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="ClL-cn-PgT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="KUe-vW-iDX">
                                 <cells>
@@ -89,7 +90,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="分类图标" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eOy-di-OHd">
                                                     <rect key="frame" x="52" y="11" width="68" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -137,12 +138,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" id="efC-ho-OoB">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="taskCell" id="efC-ho-OoB">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="efC-ho-OoB" id="KWz-NU-4oT">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="533" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3t-4g-HSf">
+                                            <rect key="frame" x="39" y="11" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" tag="99" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox-normal" translatesAutoresizingMaskIntoConstraints="NO" id="owe-hD-Wyv">
+                                            <rect key="frame" x="8" y="10" width="23" height="23"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="m3t-4g-HSf" firstAttribute="leading" secondItem="owe-hD-Wyv" secondAttribute="trailing" constant="8" symbolic="YES" id="8Tp-Hs-WIS"/>
+                                        <constraint firstItem="owe-hD-Wyv" firstAttribute="centerY" secondItem="KWz-NU-4oT" secondAttribute="centerY" id="BIG-JH-THn"/>
+                                        <constraint firstItem="owe-hD-Wyv" firstAttribute="centerY" secondItem="m3t-4g-HSf" secondAttribute="centerY" id="Rhi-vT-Y0A"/>
+                                        <constraint firstItem="m3t-4g-HSf" firstAttribute="leading" secondItem="owe-hD-Wyv" secondAttribute="trailing" constant="8" symbolic="YES" id="aNl-rw-PqM"/>
+                                        <constraint firstItem="m3t-4g-HSf" firstAttribute="centerY" secondItem="owe-hD-Wyv" secondAttribute="centerY" id="giB-US-OOz"/>
+                                        <constraint firstItem="m3t-4g-HSf" firstAttribute="leading" secondItem="owe-hD-Wyv" secondAttribute="trailing" constant="8" symbolic="YES" id="h3a-np-hwZ"/>
+                                        <constraint firstItem="owe-hD-Wyv" firstAttribute="leading" secondItem="KWz-NU-4oT" secondAttribute="leadingMargin" id="j7f-ZO-pKw"/>
+                                        <constraint firstItem="m3t-4g-HSf" firstAttribute="centerY" secondItem="owe-hD-Wyv" secondAttribute="centerY" id="lYk-Vk-q2y"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="Rhi-vT-Y0A"/>
+                                            <exclude reference="8Tp-Hs-WIS"/>
+                                            <exclude reference="aNl-rw-PqM"/>
+                                            <exclude reference="lYk-Vk-q2y"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -243,6 +273,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkbox-normal" width="23" height="23"/>
         <image name="plus" width="40" height="40"/>
         <image name="todo" width="40" height="40"/>
         <image name="心情" width="36" height="36"/>

@@ -33,10 +33,7 @@ class TodoModel: NSObject {
             let name = "任务：\(i)"
             let type = TypeItem(name: name)
             for j in 1...4 {
-                print("j: \(j)")
-                print(NSDate())
                 let task = TaskItem(title: "任务清单：\(j)", isFinish: false, dueDate: NSDate(), shouldRemind: false, level: 0)
-                print("i: \(i)")
                 type.items.append(task)
             }
             typeList.append(type)
@@ -47,12 +44,13 @@ class TodoModel: NSObject {
         typeList.append(type)
     }
     
-    func nextToDoItemId() -> Int {
+    static func nextToDoItemId() -> Int {
         return 0
     }
+
 }
 
-struct TaskItem {
+class TaskItem {
     //任务名称
     var title: String
     //完成状态
@@ -62,7 +60,7 @@ struct TaskItem {
     //是否提醒
     var shouldRemind: Bool
     //任务 id
-    var itemId: Int = todoModel.nextToDoItemId()
+    var itemId: Int = TodoModel.nextToDoItemId()
     //重要级别
     var level: Int
     
@@ -74,8 +72,8 @@ struct TaskItem {
         self.level = level
     }
     
-    mutating func changeFinishState() {
-        self.isFinish = !self.isFinish
+    func changeFinishState() {
+        isFinish = !isFinish
     }
 }
 
