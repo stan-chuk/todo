@@ -2,106 +2,115 @@
 //  TaskDetailViewController.swift
 //  todo
 //
-//  Created by 祝韶明 on 16/5/18.
+//  Created by 祝韶明 on 16/5/31.
 //  Copyright © 2016年 祝韶明. All rights reserved.
 //
 
 import UIKit
 
-class TaskDetailViewController: UITableViewController, ProtocolIconView {
+protocol ProtocolTaskDetail {
+    func addTask(task: TaskItem)
+    func editTask()
+}
 
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var doneButton: UIBarButtonItem!
+class TaskDetailViewController: UITableViewController, ProtocolLevel {
+
+    @IBOutlet weak var taskNameTextField: UITextField!
+    @IBOutlet weak var levelLabel: UILabel!
+    @IBOutlet weak var switchControl: UISwitch!
+    @IBOutlet weak var timeLabel: UILabel!
     
-    var typeItem: TypeItem = TypeItem.init(name: "")
-    
-    //设置状态，以便查看当前是添加状态还是编辑状态
+    var taskItem = TaskItem(title: "", isFinish: false, dueDate: NSDate(), shouldRemind: true, level: 0)
     var isAddState: Bool = true
-    
-    func onAddState() {
-        isAddState = true
-        //设为新数据
-        typeItem = TypeItem(name: "")
-        self.title = "添加"
-        //清空文本框内的内容
-        updateView()
-    }
-    
-    func onEditState(typeItem: TypeItem) {
-        isAddState = false
-        self.title = "编辑任务"
-        self.typeItem = typeItem
-    }
-    
-    //更新视图的内容
-    func updateView() {
-        self.textField.text = typeItem.name
-    }
-    
-    //当页面加载完毕之后就可以将数据载入控件中
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        
-        //将当前数据的 icon 显示在 imageView 中
-        iconImageView.image = UIImage(named: typeItem.icon)
-        updateView()
-        textField.becomeFirstResponder()
-    }
+    var delegate: ProtocolTaskDetail?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !isAddState {
+            self.title = "编辑任务"
+        } else {
+            self.title = "添加任务"
+        }
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        //显示默认数据
+        updateUI()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func cancel(sender: UIBarButtonItem) {
-        self.tabBarController?.selectedIndex = 0
-        onAddState()
+
+    func updateUI() {
+        taskNameTextField.text = taskItem.title
+        let level = taskItem.level
+        switchControl.on = taskItem.shouldRemind
+        levelLabel.text = LevelItem.getTitle(level)
+        updateTimeLabel()
     }
-    @IBAction func done(sender: UIBarButtonItem) {
-        typeItem.name = textField.text!
-        
+    
+    func updateTimeLabel() {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyy年MM月dd日 hh:mm"
+        self.timeLabel.text = formatter.stringFromDate(taskItem.dueDate)
+    }
+    
+    @IBAction func cancelButton(sender: UIBarButtonItem) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+
+    @IBAction func doneButton(sender: UIBarButtonItem) {
+        taskItem.title = taskNameTextField.text!
+        taskItem.shouldRemind = switchControl.on
         if isAddState {
-            todoModel.addTaskType(typeItem)
+            delegate?.addTask(taskItem)
         } else {
-            let navigation = self.tabBarController?.viewControllers?[0] as! UINavigationController
-            let typeView = navigation.viewControllers.first as! TaskTypeViewController
-            typeView.tableView.reloadData()
+            delegate?.editTask()
         }
-        
-        //跳转页面
-        self.tabBarController?.selectedIndex = 0
-        
-        //改变状态
-        onAddState()
-        
-    }
-    
-    //实现协议里的方法
-    func iconPick(didPickIcon iconName: String) {
-        //设置当前页面数据的 icon 属性
-        self.typeItem.icon = iconName
-        
-        //设置列表中的 icon
-        iconImageView.image = UIImage(named: iconName)
-        
-        //跳转页面
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "IconPick" {
-            let iconViewController = segue.destinationViewController as? IconViewController
-            iconViewController?.delegate = self
-        }
+    @IBAction func dateChange(sender: UIDatePicker) {
+        taskItem.dueDate = sender.date
+        updateTimeLabel()
     }
+    
+    func getLevel(levelItem: LevelItem) {
+        levelLabel.text = levelItem.title
+        taskItem.level = levelItem.level
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK: - Table view data source
+
+//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 0
+//    }
+//
+//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of rows
+//        return 0
+//    }
+
+    /*
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+
+        // Configure the cell...
+
+        return cell
+    }
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -138,5 +147,15 @@ class TaskDetailViewController: UITableViewController, ProtocolIconView {
     }
     */
 
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let levelVC = segue.destinationViewController as! LevelTableViewController
+        levelVC.delegate = self
+        levelVC.setCheckMark(taskItem.level)
+    }
+    
 
 }

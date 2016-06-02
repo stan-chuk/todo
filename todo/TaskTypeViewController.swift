@@ -48,6 +48,18 @@ class TaskTypeViewController: UITableViewController {
         let taskTypeItem = todoModel.typeList[indexPath.row]
         cell.imageView?.image = UIImage(named: taskTypeItem.icon)
         cell.textLabel?.text = taskTypeItem.name
+        
+        let count = taskTypeItem.countUnChecked()
+        if taskTypeItem.items.count == 0 {
+            cell.detailTextLabel?.text = "没有添加任务"
+        } else {
+            if count == 0 {
+                cell.detailTextLabel?.text = "全部搞定"
+            } else {
+                cell.detailTextLabel?.text = "有\(count)个任务没完成"
+            }
+        }
+        
         return cell
     }
     
@@ -61,7 +73,7 @@ class TaskTypeViewController: UITableViewController {
             let editAction = UITableViewRowAction(style: .Normal, title: "编辑") { (action, indexPath) in
                 let taskItem = todoModel.typeList[indexPath.row]
                 let navigation = self.tabBarController?.viewControllers![1] as? UINavigationController
-                let taskDetail = navigation?.viewControllers.first as! TaskDetailViewController
+                let taskDetail = navigation?.viewControllers.first as! TypeDetailViewController
                 taskDetail.onEditState(taskItem)
                 self.tabBarController?.selectedIndex = 1
             }
@@ -73,22 +85,6 @@ class TaskTypeViewController: UITableViewController {
             return [deleteAction,editAction]
         }
     
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation

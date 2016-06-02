@@ -8,17 +8,6 @@
 
 import Foundation
 
-class TypeItem: NSObject {
-    var name: String = ""
-    var icon: String = "心情"
-    var items = [TaskItem]()
-    
-    init(name: String) {
-        super.init()
-        self.name = name
-    }
-}
-
 class TodoModel: NSObject {
     var typeList = [TypeItem]()
     
@@ -50,32 +39,6 @@ class TodoModel: NSObject {
 
 }
 
-class TaskItem {
-    //任务名称
-    var title: String
-    //完成状态
-    var isFinish: Bool
-    //提醒时间
-    var dueDate: NSDate
-    //是否提醒
-    var shouldRemind: Bool
-    //任务 id
-    var itemId: Int = TodoModel.nextToDoItemId()
-    //重要级别
-    var level: Int
-    
-    init(title: String, isFinish: Bool, dueDate: NSDate, shouldRemind: Bool, level: Int){
-        self.title = title
-        self.isFinish = isFinish
-        self.dueDate = dueDate
-        self.shouldRemind = shouldRemind
-        self.level = level
-    }
-    
-    func changeFinishState() {
-        isFinish = !isFinish
-    }
-}
 
 //创建全局变量
 var todoModel = TodoModel()

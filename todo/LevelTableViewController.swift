@@ -1,20 +1,36 @@
 //
-//  TaskListViewController.swift
+//  LevelTableViewController.swift
 //  todo
 //
-//  Created by 祝韶明 on 16/5/23.
+//  Created by 祝韶明 on 16/6/1.
 //  Copyright © 2016年 祝韶明. All rights reserved.
 //
 
 import UIKit
 
-class TaskListViewController: UITableViewController, ProtocolTaskDetail {
+protocol ProtocolLevel {
+    func getLevel(levelItem: LevelItem)
+}
+
+class LevelTableViewController: UITableViewController {
+
+    var levelArray = [LevelItem]()
+    var delegate: ProtocolLevel?
     
-    var taskList: TypeItem?
+    func setCheckMark(level: Int) {
+        for i in 1...4 {
+            let item = LevelItem(level: i)
+
+            if i == level {
+                item.checkMark = true
+            }
+            levelArray.append(item)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = taskList?.name
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -26,25 +42,6 @@ class TaskListViewController: UITableViewController, ProtocolTaskDetail {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func addTask(task: TaskItem) {
-        taskList?.items.append(task)
-    }
-    
-    func editTask() {
-        self.tableView.reloadData()
-    }
-    
-    //检查是否已完成
-    func checkFinishState(task: TaskItem) -> UIImage {
-        var image: UIImage
-        if task.isFinish {
-            image = UIImage(named: "checkbox-checked")!
-        } else {
-            image = UIImage(named: "checkbox-normal")!
-        }
-        return image
-    }
 
     // MARK: - Table view data source
 
@@ -55,26 +52,25 @@ class TaskListViewController: UITableViewController, ProtocolTaskDetail {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return (taskList?.items.count)!
+        return levelArray.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath)
-        let task = taskList!.items[indexPath.row]
-        let title = cell.viewWithTag(100) as! UILabel
-        title.text = task.title + "(\(LevelItem.getTitle(task.level)))"
-        title.sizeToFit()
-        checkFinishState(task)
+        let cell = tableView.dequeueReusableCellWithIdentifier("LevelCell", forIndexPath: indexPath)
+        let item = levelArray[indexPath.row]
+        cell.textLabel?.text = item.title
+        if item.checkMark {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        }
         return cell
     }
+ 
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let task = taskList?.items[indexPath.row]
-        task?.changeFinishState()
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        let checkBox = cell!.viewWithTag(99) as! UIImageView
-        checkBox.image = checkFinishState(task!)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let item = levelArray[indexPath.row]
+        delegate?.getLevel(item)
     }
 
     /*
@@ -85,19 +81,17 @@ class TaskListViewController: UITableViewController, ProtocolTaskDetail {
     }
     */
 
+    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            taskList?.items.removeAtIndex(indexPath.row)
+            // Delete the row from the data source
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    
-    override func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
-        return "删除"
-    }
+    */
 
     /*
     // Override to support rearranging the table view.
@@ -114,21 +108,12 @@ class TaskListViewController: UITableViewController, ProtocolTaskDetail {
     }
     */
 
-
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let taskDetailVC = segue.destinationViewController as! TaskDetailViewController
-        taskDetailVC.delegate = self
-        if segue.identifier == "AddTask" {
-            taskDetailVC.isAddState = true
-        } else if segue.identifier == "EditTask" {
-            let indexPath = self.tableView.indexPathForCell(sender as! UITableViewCell)
-            taskDetailVC.taskItem = taskList!.items[indexPath!.row]
-            taskDetailVC.isAddState = false
-        }
     }
-
+    */
 
 }
