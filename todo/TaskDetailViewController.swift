@@ -26,7 +26,7 @@ class TaskDetailViewController: UITableViewController, ProtocolLevel {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        taskNameTextField.becomeFirstResponder()
         if !isAddState {
             self.title = "编辑任务"
         } else {
@@ -89,7 +89,8 @@ class TaskDetailViewController: UITableViewController, ProtocolLevel {
         taskItem.level = levelItem.level
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
+
+
     // MARK: - Table view data source
 
 //    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -102,6 +103,11 @@ class TaskDetailViewController: UITableViewController, ProtocolLevel {
 //        return 0
 //    }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        taskNameTextField.resignFirstResponder()
+    }
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)

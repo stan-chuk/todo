@@ -27,6 +27,11 @@ class TaskListViewController: UITableViewController, ProtocolTaskDetail {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.reloadData()
+    }
+    
     func addTask(task: TaskItem) {
         taskList?.items.append(task)
     }
