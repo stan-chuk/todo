@@ -28,4 +28,16 @@ class TypeItem: NSObject {
         return count
     }
     
+    init(coder aDecoder: NSCoder!) {
+        self.name = aDecoder.decodeObjectForKey("Name") as! String
+        self.icon = aDecoder.decodeObjectForKey("Icon") as! String
+        self.items = aDecoder.decodeObjectForKey("Items") as! [TaskItem]
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder!) {
+        aCoder.encodeObject(name, forKey: "Name")
+        aCoder.encodeObject(icon, forKey: "Icon")
+        aCoder.encodeObject(items, forKey: "Items")
+    }
+    
 }

@@ -82,6 +82,7 @@ class TaskTypeViewController: UITableViewController {
                 todoModel.typeList.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
+            todoModel.saveData()
             return [deleteAction,editAction]
         }
     

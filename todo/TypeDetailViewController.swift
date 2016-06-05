@@ -78,7 +78,7 @@ class TypeDetailViewController: UITableViewController, ProtocolIconView {
         
         //改变状态
         onAddState()
-        
+        todoModel.saveData()
     }
     
     //实现协议里的方法
