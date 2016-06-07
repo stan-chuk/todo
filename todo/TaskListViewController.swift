@@ -69,16 +69,18 @@ class TaskListViewController: UITableViewController, ProtocolTaskDetail {
         let title = cell.viewWithTag(100) as! UILabel
         title.text = task.title + "(\(LevelItem.getTitle(task.level)))"
         title.sizeToFit()
-        checkFinishState(task)
+        let checkBox = cell.viewWithTag(99) as! UIImageView
+        checkBox.image = checkFinishState(task)
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let task = taskList?.items[indexPath.row]
-        task?.changeFinishState()
+        task!.changeFinishState()
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         let checkBox = cell!.viewWithTag(99) as! UIImageView
         checkBox.image = checkFinishState(task!)
+        todoModel.saveData()
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
@@ -95,6 +97,7 @@ class TaskListViewController: UITableViewController, ProtocolTaskDetail {
         if editingStyle == .Delete {
             taskList?.items.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            todoModel.saveData()
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    

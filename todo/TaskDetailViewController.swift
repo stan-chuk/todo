@@ -26,7 +26,6 @@ class TaskDetailViewController: UITableViewController, ProtocolLevel {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        taskNameTextField.becomeFirstResponder()
         if !isAddState {
             self.title = "编辑任务"
         } else {
@@ -77,6 +76,8 @@ class TaskDetailViewController: UITableViewController, ProtocolLevel {
             delegate?.editTask()
         }
         self.navigationController?.popViewControllerAnimated(true)
+        todoModel.saveData()
+        taskItem.scheduledNotification()
     }
     
     @IBAction func dateChange(sender: UIDatePicker) {
@@ -89,7 +90,6 @@ class TaskDetailViewController: UITableViewController, ProtocolLevel {
         taskItem.level = levelItem.level
         self.navigationController?.popViewControllerAnimated(true)
     }
-
 
     // MARK: - Table view data source
 
