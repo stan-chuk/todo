@@ -77,7 +77,7 @@ class TaskDetailViewController: UITableViewController, ProtocolLevel {
         }
         self.navigationController?.popViewControllerAnimated(true)
         todoModel.saveData()
-        scheduleNotification()
+        taskItem.scheduledNotification()
     }
     
     @IBAction func dateChange(sender: UIDatePicker) {
@@ -90,35 +90,6 @@ class TaskDetailViewController: UITableViewController, ProtocolLevel {
         taskItem.level = levelItem.level
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
-    func notificationForTaskItem() -> UILocalNotification? {
-        let allNotifications = UIApplication.sharedApplication().scheduledLocalNotifications
-        for notification in allNotifications! {
-            let notificationInfo: Dictionary<String, Int> = notification.userInfo as! Dictionary<String, Int>
-            let number: Int = notificationInfo["ItemId"]!
-            if number == taskItem.itemId {
-                return notification
-            }
-        }
-        return nil
-    }
-    
-    func scheduleNotification() {
-        let existingNotification = self.notificationForTaskItem()
-        if existingNotification != nil {
-            UIApplication.sharedApplication().cancelLocalNotification(existingNotification!)
-        }
-        if taskItem.shouldRemind && (taskItem.dueDate.compare(NSDate()) != NSComparisonResult.OrderedAscending) {
-            let localNotification = UILocalNotification()
-            localNotification.fireDate = taskItem.dueDate
-            localNotification.timeZone = NSTimeZone.defaultTimeZone()
-            localNotification.alertBody = taskItem.title
-            localNotification.userInfo = ["ItemId": taskItem.itemId]
-            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-        }
-        
-    }
-
 
     // MARK: - Table view data source
 

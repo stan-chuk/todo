@@ -5,8 +5,8 @@
 //  Created by 祝韶明 on 16/6/1.
 //  Copyright © 2016年 祝韶明. All rights reserved.
 //
-
 import Foundation
+import UIKit.UILocalNotification
 
 class TaskItem: NSObject {
     //任务名称
@@ -48,8 +48,49 @@ class TaskItem: NSObject {
         aCoder.encodeObject(level, forKey: "Level")
     }
     
+    //改变是否完成的状态
     func changeFinishState() {
         isFinish = !isFinish
+    }
+    
+    //通过任务ID获取目标任务的通知
+    func notificationForThisItem() -> UILocalNotification? {
+        let allNotifications = UIApplication.sharedApplication().scheduledLocalNotifications
+        for notification in allNotifications! {
+            let info: Dictionary<String, Int> = notification.userInfo as! Dictionary<String, Int>
+            let number: Int = info["ItemId"]!
+            if number == self.itemId {
+                return notification
+            }
+        }
+        return nil
+    }
+    
+    //生成通知
+    func scheduledNotification() {
+        //检查是否已存在通知，若已存在通知，则在修改通知时取消掉上一次的通知
+        let existingNotification = notificationForThisItem()
+        if existingNotification != nil {
+            UIApplication.sharedApplication().cancelLocalNotification(existingNotification!)
+        }
+        //创建新的通知
+        if self.shouldRemind == true && (self.dueDate.compare(NSDate()) != NSComparisonResult.OrderedAscending) {
+            let notification = UILocalNotification()
+            notification.alertBody = self.title
+            notification.fireDate = self.dueDate
+            notification.timeZone = NSTimeZone.defaultTimeZone()
+            notification.soundName = UILocalNotificationDefaultSoundName
+            notification.userInfo = ["ItemId": itemId]
+            UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        }
+    }
+    
+    //当任务被删除的时候，同时取消该任务的提醒通知
+    deinit {
+        let existingNotification = notificationForThisItem()
+        if existingNotification != nil {
+            UIApplication.sharedApplication().cancelLocalNotification(existingNotification!)
+        }
     }
     
 }
