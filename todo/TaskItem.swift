@@ -51,6 +51,9 @@ class TaskItem: NSObject {
     //改变是否完成的状态
     func changeFinishState() {
         isFinish = !isFinish
+        if isFinish == true {
+            shouldRemind = false
+        }
     }
     
     //通过任务ID获取目标任务的通知
@@ -80,6 +83,7 @@ class TaskItem: NSObject {
             notification.fireDate = self.dueDate
             notification.timeZone = NSTimeZone.defaultTimeZone()
             notification.soundName = UILocalNotificationDefaultSoundName
+            notification.applicationIconBadgeNumber = UIApplication.sharedApplication().scheduledLocalNotifications!.count + 1
             notification.userInfo = ["ItemId": itemId]
             UIApplication.sharedApplication().scheduleLocalNotification(notification)
         }
