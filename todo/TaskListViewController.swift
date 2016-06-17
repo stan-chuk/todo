@@ -77,6 +77,7 @@ class TaskListViewController: UITableViewController, ProtocolTaskDetail {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let task = taskList?.items[indexPath.row]
         task!.changeFinishState()
+        print(taskList?.items[indexPath.row].shouldRemind)
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         let checkBox = cell!.viewWithTag(99) as! UIImageView
         checkBox.image = checkFinishState(task!)

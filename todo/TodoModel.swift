@@ -86,7 +86,11 @@ class TodoModel: NSObject {
             unarchiver.finishDecoding()
         } else {
             //如果文件不存在，则是第一次安装该应用，创建一个 Typelist
-            let type = TypeItem(name: "Shopping")
+            let type = TypeItem(name: "购物")
+            let task1 = TaskItem(title: "酱油", isFinish: false, dueDate: NSDate(), shouldRemind: false, level: 1)
+            let task2 = TaskItem(title: "大米", isFinish: false, dueDate: NSDate(), shouldRemind: false, level: 2)
+            type.items.append(task1)
+            type.items.append(task2)
             typeList.append(type)
             saveData()
         }
